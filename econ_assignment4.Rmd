@@ -17,3 +17,11 @@ carbon_data <- read_csv("HW4Data.csv")
 
 ```
 
+```{r}
+
+# Sector A marginal cost equation:
+
+# y = -0.2760347x + 180 ( I have no idea if this is right/ if this is even what we are supposed to do)
+
+```
+
