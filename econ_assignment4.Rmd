@@ -17,11 +17,50 @@ carbon_data <- read_csv("HW4Data.csv")
 
 ```
 
-```{r}
+1. Model of marginal cost of abatement for each sector
 
-# Sector A marginal cost equation:
+```{r, visualizing data}
 
-# y = -0.2760347x + 180 ( I have no idea if this is right/ if this is even what we are supposed to do)
+# Exploratory Graphs
+
+sector_a <- ggplot(carbon_data, aes(x = Abatement, y = MC_A)) + 
+  geom_point()
+sector_a
+
+
+sector_b <- ggplot(carbon_data, aes(x = Abatement, y = MC_B)) + 
+  geom_point()
+sector_b
+
+sector_c <- ggplot(carbon_data, aes(x = Abatement, y = MC_C)) + 
+  geom_point()
+sector_c
+
+sector_d <- ggplot(carbon_data, aes(x = Abatement, y = MC_D)) + 
+  geom_point()
+sector_d
+
+```
+
+
+
+
+```{r, estimating parameters}
+
+# Linear Regressions
+
+# Sector A
+
+sector_a_model <- lm(Abatement ~ MC_A, data = carbon_data)
+sector_a_model
+
+# Cost of carbon abatement = 1.578*(MC_A) + 20.362
+
+
+# Sector B
+
+
+
 
 ```
 
