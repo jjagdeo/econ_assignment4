@@ -19,31 +19,32 @@ carbon_data <- read_csv("HW4Data.csv")
 
 1. Model of marginal cost of abatement for each sector
 
-```{r, visualizing data}
+```{r, visualizing data to find functional form}
 
 # Exploratory Graphs
 
 sector_a <- ggplot(carbon_data, aes(x = Abatement, y = MC_A)) + 
   geom_point()
 sector_a
+# Looks linear enough...?
 
 
 sector_b <- ggplot(carbon_data, aes(x = Abatement, y = MC_B)) + 
   geom_point()
 sector_b
+# idk
 
 sector_c <- ggplot(carbon_data, aes(x = Abatement, y = MC_C)) + 
   geom_point()
 sector_c
+# Exponential...?
 
 sector_d <- ggplot(carbon_data, aes(x = Abatement, y = MC_D)) + 
   geom_point()
 sector_d
+#idk 
 
 ```
-
-
-
 
 ```{r, estimating parameters}
 
@@ -51,15 +52,30 @@ sector_d
 
 # Sector A
 
-sector_a_model <- lm(Abatement ~ MC_A, data = carbon_data)
+sector_a_model <- lm(MC_A ~ Abatement, data = carbon_data)
 sector_a_model
 
-# Cost of carbon abatement = 1.578*(MC_A) + 20.362
+# Cost of carbon abatement = 0.5768*(Abatement) - 8.6445
 
 
 # Sector B
 
+```
 
+```{r, model fit}
+
+# Detailed model information
+
+# Sector A
+
+summary(sector_a_model)
+
+# R^2 = 0.9104, p for model fit = 1.01e-08
+
+# Basd on this model, Tons of carbon abatement significanly predicts marginal cost of abatement,  R^2 is the proportion of the variance in cost of abatement that is explained by the tons of carbon abatement. 91% of variance in cost is predictable by tons of carbon abatement and 9% of variance in cost is not predictable by tons.
+
+
+# Sector B
 
 
 ```
