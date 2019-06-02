@@ -111,3 +111,122 @@ summary(sector_d_model)
 ```
 
 2. Demand Curve
+
+```{r}
+
+#Find the intersection of the marginal cost curves with current emissions from each sector:
+
+
+# Sector A
+
+# Cost of carbon abatement = 0.5768*(Abatement) - 8.6445
+
+# Current emissions is 180 tons
+
+0.5768*180-8.6445 # Equals $95.18
+
+# Points: (180, 0) and (0, 95.18)
+
+# Slope: -0.5287778
+
+(95.18-0)/(0-180)
+
+# Y-intercept: 95.18
+
+
+
+# Sector B
+
+# Cost of carbon abatement = 0.1987*(Abatement) + 9.3177
+
+# Current emissions are 200 tons
+
+0.1987*200+9.3177 # Equals $49.06
+
+# Points: (200, 0) and (0, 49.06)
+
+# Slope: -0.2453
+
+(49.06-0)/(0-200)
+
+# Y-intercept: 49.06
+
+
+
+# Sector C
+
+# Cost of carbon abatement = 0.78388(Abatement) - 11.6550
+
+# Current emissions are 220 tons
+
+0.78388*220-11.6550 # Equals $160.80
+
+# Points: (220, 0) and (0, 160.80)
+
+# Slope: -0.7309091
+
+(160.80-0)/(0-220)
+
+# Y-intercept: 160.80
+
+
+
+# Sector D
+
+# Cost of abatement = 0.2599*(Abatement) + 9.6875
+
+# Current emissions are 300 tons
+
+0.2599*300+9.6875 # Equals $87.66
+
+# Points: (300, 0) and (0, 87.66)
+
+# Slope: -0.2922
+
+(87.66-0)/(0-300)
+
+# Y-intercept: 87.66
+
+```
+
+```{r}
+
+# Demand curves for each sector:
+
+
+# Sector A
+
+# y = -0.5287778X + 95.18
+
+
+
+# Sector B
+
+# y = -0.2453X + 49.06
+
+
+
+
+# Sector C
+
+# y = -0.7309091X + 160.80
+
+
+
+
+# Sector D
+
+# y =  -0.2922X + 87.66
+
+
+```
+
+```{r}
+
+graph <- ggplot(carbon_data) +
+  geom_abline(intercept = 87.66, slope = -0.2922)
+
+graph
+
+```
+
