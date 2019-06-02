@@ -59,6 +59,24 @@ sector_a_model
 
 
 # Sector B
+sector_b_model <- lm(MC_B ~ Abatement, data = carbon_data)
+sector_b_model
+
+# Cost of carbon abatement = 0.1987*(Abatement) + 9.3177
+
+
+# Sector C
+sector_c_model <- lm(MC_C ~ Abatement, data = carbon_data)
+sector_c_model
+
+# Cost of carbon abatement = 0.78388(Abatement) - 11.6550
+
+
+# Sector D
+sector_d_model <- lm(MC_D ~ Abatement, data = carbon_data)
+sector_d_model
+
+# Cost of abatement = 0.2599*(Abatement) + 9.6875
 
 ```
 
@@ -76,7 +94,20 @@ summary(sector_a_model)
 
 
 # Sector B
+summary(sector_b_model)
+
+# R^2 = 0.5664, p = 0.0007672
+
+# Secctor C
+summary(sector_c_model)
+
+# R^2 = 0.8752, p = 1.044e-07
+
+# Sector D
+summary(sector_d_model)
+# R^2 = 0.5434, p = 0.001121
 
 
 ```
 
+2. Demand Curve
