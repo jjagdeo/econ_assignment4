@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, message = FALSE}
 
 library(tidyverse)
 
@@ -110,6 +110,45 @@ summary(sector_d_model)
 
 ```
 
+```{r, graphing supply curves}
+
+# Sector A
+
+coeff_a <- coefficients(sector_a_model)
+eq_sector_a <- paste0("y = ", coeff_a[2], "*x ", coeff_a[1])
+
+equation_a_supply = function(x) {x*coeff_a[2] + coeff_a[1]}
+curve(equation_a_supply, from = 0, to = 200, xlim = c(0,100), xaxs = "i", ylim = c(-10,100), yaxs = "i")
+
+
+# Add sector B
+
+coeff_b <- coefficients(sector_b_model)
+eq_sector_b <- paste0("y = ", coeff_b[2], "*x ", coeff_b[1])
+
+equation_b_supply = function(x) {x*coeff_b[2] + coeff_b[1]}
+curve(equation_b_supply, from = 0, to = 200, add = TRUE, col = "blue")
+
+
+# Add sector C
+
+coeff_c <- coefficients(sector_c_model)
+eq_sector_c <- paste0("y = ", coeff_c[2], "*x ", coeff_c[1])
+
+equation_c_supply = function(x) {x*coeff_c[2] + coeff_c[1]}
+curve(equation_c_supply, from = 0, to = 200, add = TRUE, col = "green")
+
+
+# Add sector D
+
+coeff_d <- coefficients(sector_d_model)
+eq_sector_d <- paste0("y = ", coeff_d[2], "*x ", coeff_d[1])
+
+equation_d_supply = function(x) {x*coeff_d[2] + coeff_d[1]}
+curve(equation_d_supply, from = 0, to = 200, add = TRUE, col = "purple")
+
+```
+
 2. Demand Curve
 
 ```{r}
@@ -189,7 +228,7 @@ summary(sector_d_model)
 
 ```
 
-```{r}
+```{r, demand curves}
 
 # Demand curves for each sector:
 
@@ -197,6 +236,7 @@ summary(sector_d_model)
 # Sector A
 
 # y = -0.5287778X + 95.18
+
 
 
 
@@ -221,12 +261,42 @@ summary(sector_d_model)
 
 ```
 
-```{r}
+```{r, graphing the demand curves}
 
-graph <- ggplot(carbon_data) +
-  geom_abline(intercept = 87.66, slope = -0.2922)
+# Sector A
 
-graph
+slope_a <- -0.5287778
+y_int_a <- 95.18
+
+equation_a_demand = function(x) {x*slope_a + y_int_a}
+curve(equation_a_demand, from = 0, to = 200, xlim = c(0,100), xaxs = "i", ylim = c(0,200), yaxs = "i")
+
+
+# Add Sector B 
+
+slope_b <- -0.2453
+y_int_b <- 49.06
+
+equation_b_demand = function(x) {x*slope_b + y_int_b}
+curve(equation_b_demand, from = 0, to = 200, add = TRUE, col = "blue")
+
+
+# Add Sector C
+
+slope_c <- -0.7309091
+y_int_c <- 160.80
+
+equation_c_demand = function(x) {x*slope_c + y_int_c}
+curve(equation_c_demand, from = 0, to = 200, add = TRUE, col = "green")
+
+
+# Add Sector D
+
+slope_d <- -0.2922
+y_int_d <- 87.66
+
+equation_d_demand = function(x) {x*slope_d + y_int_d}
+curve(equation_d_demand, from = 0, to = 200, add = TRUE, col = "purple")
 
 ```
 
