@@ -55,32 +55,32 @@ sector_d
 sector_a_model <- lm(MC_A ~ Abatement, data = carbon_data)
 sector_a_model
 
-# Cost of carbon abatement = 0.5768*(Abatement) - 8.6445
+# Marginal cost of carbon abatement = 0.5768*(Abatement) - 8.6445
 
 
 # Sector B
 sector_b_model <- lm(MC_B ~ Abatement, data = carbon_data)
 sector_b_model
 
-# Cost of carbon abatement = 0.1987*(Abatement) + 9.3177
+# Marginal cost of carbon abatement = 0.1987*(Abatement) + 9.3177
 
 
 # Sector C
 sector_c_model <- lm(MC_C ~ Abatement, data = carbon_data)
 sector_c_model
 
-# Cost of carbon abatement = 0.7838*(Abatement) - 11.6550
+# Marginal cost of carbon abatement = 0.7838*(Abatement) - 11.6550
 
 
 # Sector D
 sector_d_model <- lm(MC_D ~ Abatement, data = carbon_data)
 sector_d_model
 
-# Cost of abatement = 0.2599*(Abatement) + 9.6875
+# Marginal cost of abatement = 0.2599*(Abatement) + 9.6875
 
 ```
 
-```{r, model fit}
+```{r, model fit, include = FALSE}
 
 # Detailed model information
 
@@ -110,7 +110,7 @@ summary(sector_d_model)
 
 ```
 
-```{r, graphing supply curves}
+```{r, graphing abatement (cost) curves}
 
 # Sector A
 
@@ -118,7 +118,7 @@ coeff_a <- coefficients(sector_a_model)
 eq_sector_a <- paste0("y = ", coeff_a[2], "*x ", coeff_a[1])
 
 equation_a_supply = function(x) {x*coeff_a[2] + coeff_a[1]}
-curve(equation_a_supply, from = 0, to = 300, xlim = c(0,300), xaxs = "i", ylim = c(-10,250), yaxs = "i")
+curve(equation_a_supply, from = 0, to = 300, xlim = c(0,300), xaxs = "i", ylim = c(-20,250), yaxs = "i")
 
 
 # Add sector B
@@ -158,7 +158,7 @@ curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 
 # Sector A
 
-# Cost of carbon abatement = 0.5768*(Abatement) - 8.6445
+# Marginal cost of carbon abatement = 0.5768*(Abatement) - 8.6445
 
 # Current emissions is 180 tons
 
@@ -176,7 +176,7 @@ curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 
 # Sector B
 
-# Cost of carbon abatement = 0.1987*(Abatement) + 9.3177
+# Marginal cost of carbon abatement = 0.1987*(Abatement) + 9.3177
 
 # Current emissions are 200 tons
 
@@ -194,7 +194,7 @@ curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 
 # Sector C
 
-# Cost of carbon abatement = 0.78388(Abatement) - 11.6550
+# Marginal cost of carbon abatement = 0.78388(Abatement) - 11.6550
 
 # Current emissions are 220 tons
 
@@ -212,7 +212,7 @@ curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 
 # Sector D
 
-# Cost of abatement = 0.2599*(Abatement) + 9.6875
+# Marginal cost of abatement = 0.2599*(Abatement) + 9.6875
 
 # Current emissions are 300 tons
 
@@ -307,36 +307,34 @@ a. Cap on carbon
 ```{r, total cost of meeting target if each county reduces by 100 tons}
 
 # Sector A
-# Cost of carbon abatement = 0.5768*(Abatement) - 8.6445
+# Marginal cost of carbon abatement = 0.5768*(Abatement) - 8.6445
 0.5768*(100) - 8.6445
-# Cost = $49.0355
-
+# Marginal cost = $49.0355
+# Cost (area under the curve) = $2019.55
 
 # Sector B
-# Cost of carbon abatement = 0.1987*(Abatement) + 9.3177
+# Marginal cost of carbon abatement = 0.1987*(Abatement) + 9.3177
 0.1987*(100) + 9.3177
-# Cost = $29.1877
-
+# Marginal cost = $29.1877
+# Cost = $1925.27
 
 # Sector C
-# Cost of carbon abatement = 0.7838*(Abatement) - 11.6550
+# Marginal cost of carbon abatement = 0.7838*(Abatement) - 11.6550
 0.7838*(100) - 11.6550
-# Cost = 66.725
-
+# Marginal cost = 66.725
+# Cost = $2753.5
 
 # Total cost for Country X
-49.0355 + 29.1877 + 66.725
-# Total cost = $144.9482
+# $6698.32
+
 
 ```
 
 ```{r, cost or benefit to each sector}
 
-# Cost might just be the value above for each sector??
-
-# Sector A: $49.0355
-# Sector B: $29.1877
-# Sector C: $66.725
+# Sector A: $2019.55
+# Sector B: $1925.27
+# Sector C: $2753.50
 
 ```
 
@@ -350,7 +348,7 @@ b. Tax on Carbon
 
 ```{r, add equations horizontally}
 
-# Rearragne equations
+# Rearrange equations
 
 # Sector A: Cost of carbon abatement = 0.5768*(Abatement) - 8.6445
 # Abatement = 1.733703*(cost) + 14.987
@@ -372,12 +370,60 @@ b. Tax on Carbon
       c1 <- 1/0.7838
       c2 <- 11.6550/0.7838
 
+      
 
 # Add them up for aggregate equation
       
 # Abatement = (a1 + b1 + c1)*cost + (a2 + b2 + c2)
-      (a1 + b1 + c1) # 8.042251
-      (a2 + b2 + c2) # -17.03644
-# Abatenent = 8.042251*(cost) - 17.03644
+      m1 <- (a1 + b1 + c1) # 8.042251
+      y <- (a2 + b2 + c2) # -17.03644
+# Abatement = 8.042251*(cost) - 17.03644
+      
+```
+
+```{r, find tax price}
+
+# Rearrange aggregate equation to y = mx + b form
+
+      m <- 1/m1 # 0.12343
+      b <- -y/m1 # 2.11837
+
+# Marginal cost of abatement = 0.12343*(Abatement) + 2.11837
+      
+      
+# Plug in abatement amount
+0.12343*(300) + 2.11837
+# Marginal cost of abating 300 tons = $39.14737
+
+
+# Tax should be set at $39.15
 
 ```
+
+```{r, find quanitiy each county will abate at tax price}
+
+# Sector A
+# 39.14737 = 0.5768*(Abatement) - 8.6445
+(39.14737 + 8.6445) / 0.5768
+# Abatement = 82.85692 tons
+
+
+# Sector B
+# 39.14737 = 0.1987*(Abatement) + 9.3177
+(39.14737 - 9.3177) / 0.1987
+# Abatement = 150.1242 tons
+
+
+# Sector C
+# 39.14737 = 0.7838*(Abatement) - 11.6550
+(39.14737 + 11.6550) / 0.7838
+# Abatement = $64.81548
+
+```
+
+```{r, total cost of meeting target under a tax}
+
+
+
+```
+
