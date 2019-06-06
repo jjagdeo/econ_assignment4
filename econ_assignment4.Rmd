@@ -147,6 +147,9 @@ eq_sector_d <- paste0("y = ", coeff_d[2], "*x ", coeff_d[1])
 equation_d_supply = function(x) {x*coeff_d[2] + coeff_d[1]}
 curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 
+
+
+
 ```
 
 2. Demand Curve
@@ -238,20 +241,14 @@ curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 # y = -0.5287778X + 95.18
 
 
-
-
 # Sector B
 
 # y = -0.2453X + 49.06
 
 
-
-
 # Sector C
 
 # y = -0.7309091X + 160.80
-
-
 
 
 # Sector D
@@ -310,39 +307,39 @@ a. Cap on carbon
 # Marginal cost of carbon abatement = 0.5768*(Abatement) - 8.6445
 0.5768*(100) - 8.6445
 # Marginal cost = $49.0355
-# Cost (area under the curve) = $2019.55
+# Cost (area under the curve) = $2019.55 - this may be incorrect (Jess)
+# To find the area under the curve, the equation is 0.5*100(base)*marginal cost(height)
+sectorA_totalcost <- 0.5*100*49.0355
+# Total cost of abatement of 100 for Sector A is $2451.775
 
 # Sector B
 # Marginal cost of carbon abatement = 0.1987*(Abatement) + 9.3177
 0.1987*(100) + 9.3177
 # Marginal cost = $29.1877
-# Cost = $1925.27
+# Cost = $1925.27 - this may be wrong (Jess)
+sectorB_totalcost <- 0.5*100*29.1877
+# Total cost of abatement of 100 for Sector B is $1459.385
 
 # Sector C
 # Marginal cost of carbon abatement = 0.7838*(Abatement) - 11.6550
 0.7838*(100) - 11.6550
 # Marginal cost = 66.725
-# Cost = $2753.5
+# Cost = $2753.5 - this may be wrong (Jess)
+sectorC_totalcost <- 0.5*100*66.725
+# Total cost of abatement of 100 for Sector C is $3336.25
 
 # Total cost for Country X
-# $6698.32
+# $6698.32 - this may be wrong (Jess)
 
 
-```
+# Total cost for Country X is $ 7247.41
+countryX_totalcost3A <- sectorA_totalcost+sectorB_totalcost+sectorC_totalcost
 
-```{r, cost or benefit to each sector}
 
-# Sector A: $2019.55
-# Sector B: $1925.27
-# Sector C: $2753.50
+# No tax revenue generated in this scenario
 
 ```
 
-```{r, tax revenue generated}
-
-# $0 since this is not a tax 
-
-```
 
 b. Tax on Carbon
 
@@ -392,37 +389,162 @@ b. Tax on Carbon
       
       
 # Plug in abatement amount
-0.12343*(300) + 2.11837
+tax <- 0.12343*(300) + 2.11837
 # Marginal cost of abating 300 tons = $39.14737
-
-
 # Tax should be set at $39.15
 
 ```
 
-```{r, find quanitiy each county will abate at tax price}
+```{r, find quantity each sector will abate at tax price}
 
 # Sector A
 # 39.14737 = 0.5768*(Abatement) - 8.6445
-(39.14737 + 8.6445) / 0.5768
+sectorA_abatement3B <- (tax + 8.6445) / 0.5768
 # Abatement = 82.85692 tons
 
 
 # Sector B
 # 39.14737 = 0.1987*(Abatement) + 9.3177
-(39.14737 - 9.3177) / 0.1987
+sectorB_abatement3B <- (tax - 9.3177) / 0.1987
 # Abatement = 150.1242 tons
 
 
 # Sector C
 # 39.14737 = 0.7838*(Abatement) - 11.6550
-(39.14737 + 11.6550) / 0.7838
-# Abatement = $64.81548
+sectorC_abatement3B <- (tax + 11.6550) / 0.7838
+# Abatement = 64.81548 tons
 
 ```
 
+
+```{r, cost to each sector}
+
+sectorA_totalcost3B <- (0.5*tax*(sectorA_abatement3B))
+# Total cost to Sector A under cap and trade is $1621.82
+
+sectorB_totalcost3B <- (0.5*tax*(sectorB_abatement3B))
+# Total cost to Sector B under cap and trade is $2938.48
+
+sectorC_totalcost3B <- (0.5*tax*(sectorC_abatement3B))
+# Total cost to Sector C under cap and trade is $1268.68
+
+```
+
+
 ```{r, total cost of meeting target under a tax}
 
+countryX_totalcost3B <- 0.5*300*tax
+# Total cost of meeting target under tax for Country X is $5872.11
+
+```
+
+```{r, tax revenue generated in Country X}
+
+countryX_taxrev3B <- 300*tax
+# Tax revenue generated under tax of $39.15 is $11,744.21
+
+```
+
+C. Cap and trade.
+
+
+```{r, cap and trade amounts for each sector}
+
+# Sector A
+# 39.14737 = 0.5768*(Abatement) - 8.6445
+sectorA_captrade3C <- 100 - ((tax + 8.6445) / 0.5768)
+# Sector A needs to buy 17.143 credits to actually abate 100 tons
+
+
+# Sector B
+# 39.14737 = 0.1987*(Abatement) + 9.3177
+sectorB_captrade3C <- 100 - ((tax - 9.3177) / 0.1987)
+# Sector B abated more than 100 tons, so it can sell 50.124 credits
+
+
+# Sector C
+# 39.14737 = 0.7838*(Abatement) - 11.6550
+sectorC_captrade3C <- 100 - ((tax + 11.6550) / 0.7838)
+# Sector C needs to buy 35.185 credits to actually abate 100 tons
+
+```
+
+```{r, cost to each sector and country as a whole}
+
+sectorA_totalcost3C <- (0.5*tax*(sectorA_captrade3C+sectorA_abatement3B))
+# Total cost to Sector A under cap and trade is $1957.37
+
+sectorB_totalcost3C <- (0.5*tax*(sectorB_abatement3B + sectorB_captrade3C))
+# Total cost to Sector B under cap and trade is $1957.37
+
+sectorC_totalcost3C <- (0.5*tax*(sectorC_captrade3C + sectorC_abatement3B))
+# Total cost to Sector C under cap and trade is $1957.37
+
+countryX_totalcost3C <- sectorA_totalcost3C + sectorB_totalcost3C + sectorC_totalcost3C
+# Total cost to Country X under cap and trade is $5872.11
+
+```
+
+No tax revenue in a cap and trade system
+
+4. Again, without any co-benefits, suppose that country Y (which only has one carbon-emitting sector, D) has no obligation to reduce its emissions. Country X asks country Y to enter the country X carbon
+market. Doing so would require country Y to put a cap on carbon emissions at its current level of
+emissions (300 tons), but would then allow country Y to sell carbon offsets to sectors A, B, or C. Are
+there any incentives for country Y to enter country X’s carbon market and to thus place a voluntary cap on its emissions? Are there any incentives for country X to try to attract country Y into its market?
+
+```{r}
+
+#Re-arrange sector D abatement curve in terms of x:
+# For Sector D: Marginal cost of abatement = 0.2599*(Abatement) + 9.6875
+# y = 0.2599X + 9.6875
+1/0.2599
+-9.6875/0.2599
+# x = 3.847634y - 37.27395
+
+# Add Sectors A, B, C agg. supply curve to Sector D's supply curve:
+# For Sector D: x = 3.847634y - 37.27395
+# For Sectors A, B, C: x = 8.042251y - 17.03644
+3.847634 + 8.042251
+- 37.27395 - 17.03644
+# Agg. supply curve w/ A, B, C, D: x = 11.88988y - 54.31039
+
+# Rearrange agg. supply curve in terms of y:
+1/11.88988
+54.31039/11.88988
+# Rearranged equation: y = 0.08410515X + 4.567783
+
+```
+
+```{r}
+
+# New tax w/ Sector D involved:
+# y = 0.08410515X + 4.567783
+tax4 <- ((0.08410515 * 300) + 4.567783)
+# New tax w/ Sector D is $29.80
+
+```
+
+```{r}
+
+# Abatement under this scenario:
+
+# Sector A
+sectorA_abatement4 <- ((tax4 + 8.6445) / 0.5768)
+# Sector A will abate 66.65 tons
+
+
+# Sector B
+sectorB_abatement4 <- ((tax4 - 9.3177) / 0.1987)
+# Sector B will abate 103.08 tons
+
+
+# Sector C
+sectorC_abatement4 <- ((tax4 + 11.6550) / 0.7838)
+# Sector C will abate 52.88 tons 
+
+# Sector D
+sectorD_abatement4 <- ((tax4 -9.6875)/0.2599)
+# Sector D will abate 77.38 tons
 
 
 ```
