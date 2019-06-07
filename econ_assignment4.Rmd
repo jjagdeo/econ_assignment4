@@ -144,7 +144,7 @@ coeff_a <- coefficients(sector_a_model)
 eq_sector_a <- paste0("y = ", coeff_a[2], "*x ", coeff_a[1])
 
 equation_a_supply = function(x) {x*coeff_a[2] + coeff_a[1]}
-curve(equation_a_supply, from = 0, to = 300, xlim = c(0,300), xaxs = "i", ylim = c(-20,250), yaxs = "i")
+curve(equation_a_supply, from = 0, to = 300, xlim = c(0,300), xaxs = "i", ylim = c(-20,250), yaxs = "i", xlab = "Carbon Abatement (Tons)", ylab = "Price ($) per Ton")
 
 
 # Add sector B
@@ -173,8 +173,8 @@ eq_sector_d <- paste0("y = ", coeff_d[2], "*x ", coeff_d[1])
 equation_d_supply = function(x) {x*coeff_d[2] + coeff_d[1]}
 curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 
-
-
+legend(1, 250, legend=c("Sector A", "Sector B", "Sector C", "Sector D"),
+       col=c("black", "blue", "green","purple"), lty=1:1, cex=0.8)
 
 ```
 
@@ -272,7 +272,7 @@ slope_a <- -0.5287778
 y_int_a <- 95.18
 
 equation_a_demand = function(x) {x*slope_a + y_int_a}
-curve(equation_a_demand, from = 0, to = 200, xlim = c(0,300), xaxs = "i", ylim = c(0,200), yaxs = "i")
+curve(equation_a_demand, from = 0, to = 200, xlim = c(0,300), xaxs = "i", ylim = c(0,200), yaxs = "i",yaxs = "i", xlab = "Carbon Emitted (Tons)", ylab = "Price ($) per Ton")
 
 
 # Add Sector B 
@@ -300,6 +300,9 @@ y_int_d <- 87.66
 
 equation_d_demand = function(x) {x*slope_d + y_int_d}
 curve(equation_d_demand, from = 0, to = 300, add = TRUE, col = "purple")
+
+legend(245, 200, legend=c("Sector A", "Sector B", "Sector C", "Sector D"),
+       col=c("black", "blue", "green","purple"), lty=1:1, cex=0.8)
 
 ```
 
