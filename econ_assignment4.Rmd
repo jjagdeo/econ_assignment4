@@ -2,16 +2,19 @@
 title: "econ_assignment4"
 author: "Jessica Jagdeo"
 date: "May 28, 2019"
-output: html_document
+output:
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, message = FALSE}
+```{r, include = FALSE}
 
 library(tidyverse)
+library(stargazer)
 
 carbon_data <- read_csv("HW4Data.csv")
 
@@ -19,7 +22,7 @@ carbon_data <- read_csv("HW4Data.csv")
 
 1. Model of marginal cost of abatement for each sector
 
-```{r, visualizing data to find functional form}
+```{r, visualizing data to find functional form, include = FALSE}
 
 # Exploratory Graphs
 
@@ -46,7 +49,7 @@ sector_d
 
 ```
 
-```{r, estimating parameters}
+```{r, estimating parameters, include = FALSE}
 
 # Linear Regressions
 
@@ -80,6 +83,29 @@ sector_d_model
 
 ```
 
+```{r, results = 'asis', echo = FALSE}
+
+stargazer(sector_a_model, sector_b_model, sector_c_model, sector_d_model,
+          type = "html",
+          title = "Table 1. Linear Regression Models for Carbon Abatement from Sectors A, B, and C in Country X and Sector D in Country Y.", 
+          dep.var.labels=c("Sector A", "Sector B", "Sector C", "Sector D")
+          )
+
+```
+
+
+
+We have determined that linear regression models produce relatively adequate fits for the carbon emissions data from the sectors. 
+
+Our linear regression models are:
+
+Sector A: Marginal cost of carbon abatement = 0.5768*(Abatement) - 8.6445
+Sector B: Marginal cost of carbon abatement = 0.1987*(Abatement) + 9.3177
+Sector C: Marginal cost of carbon abatement = 0.7838*(Abatement) - 11.6550
+Sector D: Marginal cost of abatement = 0.2599*(Abatement) + 9.6875
+
+R^2 is the proportion of the variance in cost of abatement that is explained by the tons of carbon abatement. Basd on these models and their associated R^2, tons of carbon abatement significantly predicts marginal cost of abatement.
+
 ```{r, model fit, include = FALSE}
 
 # Detailed model information
@@ -110,7 +136,7 @@ summary(sector_d_model)
 
 ```
 
-```{r, graphing abatement (cost) curves}
+```{r, graphing abatement (cost) curves, echo = FALSE}
 
 # Sector A
 
@@ -231,34 +257,14 @@ curve(equation_d_supply, from = 0, to = 300, add = TRUE, col = "purple")
 
 ```
 
-```{r, demand curves}
+Demand curves for each sector:
 
-# Demand curves for each sector:
+Sector A: y = -0.5287778X + 95.18
+Sector B: y = -0.2453X + 49.06
+Sector C: y = -0.7309091X + 160.80
+Sector D: y =  -0.2922X + 87.66
 
-
-# Sector A
-
-# y = -0.5287778X + 95.18
-
-
-# Sector B
-
-# y = -0.2453X + 49.06
-
-
-# Sector C
-
-# y = -0.7309091X + 160.80
-
-
-# Sector D
-
-# y =  -0.2922X + 87.66
-
-
-```
-
-```{r, graphing the demand curves}
+```{r, graphing the demand curves, echo = FALSE}
 
 # Sector A
 
@@ -301,7 +307,7 @@ curve(equation_d_demand, from = 0, to = 300, add = TRUE, col = "purple")
 
 a. Cap on carbon
 
-```{r, total cost of meeting target if each county reduces by 100 tons}
+```{r, total cost of meeting target if each county reduces by 100 tons, include = FALSE}
 
 # Sector A
 # Marginal cost of carbon abatement = 0.5768*(Abatement) - 8.6445
@@ -338,7 +344,7 @@ countryX_totalcost3A <- sectorA_totalcost+sectorB_totalcost+sectorC_totalcost
 
 b. Tax on Carbon
 
-```{r, add equations horizontally}
+```{r, add equations horizontally, include = FALSE}
 
 # Rearrange equations
 
@@ -373,7 +379,7 @@ b. Tax on Carbon
       
 ```
 
-```{r, find tax price}
+```{r, find tax price, include = FALSE}
 
 # Rearrange aggregate equation to y = mx + b form
 
@@ -390,7 +396,7 @@ tax <- 0.12343*(300) + 2.11837
 
 ```
 
-```{r, find quantity each sector will abate at tax price}
+```{r, find quantity each sector will abate at tax price, include = FALSE}
 
 # Sector A
 # 39.14737 = 0.5768*(Abatement) - 8.6445
@@ -411,7 +417,7 @@ sectorC_abatement3B <- (tax + 11.6550) / 0.7838
 
 ```
 
-```{r, cost to each sector}
+```{r, cost to each sector, include = FALSE}
 
 # Integrate from 0 to actual abatement amount for each sector then add how much taxes they have to pay to find total cost:
 
@@ -436,7 +442,7 @@ sectorC_totalcost3B <- 651.284 + sectorC_totaltax3B
 
 ```
 
-```{r, total cost of meeting target under a tax}
+```{r, total cost of meeting target under a tax, include = FALSE}
 
 
 # Total cost for country X is sectos added together minus tax revenue because tax goes to the country's govnerment
@@ -446,7 +452,7 @@ countryX_totalcost3B <- (sectorA_totalcost3B + sectorB_totalcost3B + sectorC_tot
 
 ```
 
-```{r, tax revenue generated in Country X}
+```{r, tax revenue generated in Country X, include = FALSE}
 
 countryX_taxrev3B <- 300*tax
 
@@ -457,7 +463,7 @@ countryX_taxrev3B <- 300*tax
 
 C. Cap and trade.
 
-```{r, cap and trade amounts for each sector}
+```{r, cap and trade amounts for each sector, include = FALSE}
 
 # Sector A
 # 39.14737 = 0.5768*(Abatement) - 8.6445
@@ -478,7 +484,7 @@ sectorC_captrade3C <- 100 - ((tax + 11.6550) / 0.7838)
 
 ```
 
-```{r, cost and benefits to each sector}
+```{r, cost and benefits to each sector, include = FALSE}
 
 # Sector A emits 97.14308 tons (180 - 82.856917)
 # sector B emits 49.87584 tons (200 - 150.12415)  THIS SHOULD BE EMITS 48. WE PROBS HAVE A ROUNDING PROBLEM SOMEWHERE 
@@ -506,7 +512,7 @@ sectorC_permit <- 651.284 + (tax*35)
 
 ```
 
-```{r, cost country as a whole}
+```{r, cost country as a whole, include = FALSE}
 
 countryX_totalcost3C <- (sectorA_permit + sectorC_permit + sector_B_permit)
 
@@ -523,7 +529,7 @@ market. Doing so would require country Y to put a cap on carbon emissions at its
 emissions (300 tons), but would then allow country Y to sell carbon offsets to sectors A, B, or C. Are
 there any incentives for country Y to enter country X’s carbon market and to thus place a voluntary cap on its emissions? Are there any incentives for country X to try to attract country Y into its market?
 
-```{r}
+```{r, include = FALSE}
 
 # Re-arrange sector D abatement curve in terms of x:
 # For Sector D: Marginal cost of abatement = 0.2599*(Abatement) + 9.6875
@@ -546,7 +552,7 @@ there any incentives for country Y to enter country X’s carbon market and to t
 
 ```
 
-```{r}
+```{r, include = FALSE}
 
 # New tax w/ Sector D involved:
 # y = 0.08410515X + 4.567783
@@ -555,7 +561,7 @@ tax4 <- ((0.08410515 * 300) + 4.567783)
 
 ```
 
-```{r}
+```{r, include = FALSE}
 
 # Abatement under this scenario:
 
