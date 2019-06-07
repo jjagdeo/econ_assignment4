@@ -301,7 +301,7 @@ y_int_d <- 87.66
 equation_d_demand = function(x) {x*slope_d + y_int_d}
 curve(equation_d_demand, from = 0, to = 300, add = TRUE, col = "purple")
 
-legend(245, 200, legend=c("Sector A", "Sector B", "Sector C", "Sector D"),
+legend(150, 200, legend=c("Sector A", "Sector B", "Sector C", "Sector D"),
        col=c("black", "blue", "green","purple"), lty=1:1, cex=0.8)
 
 ```
