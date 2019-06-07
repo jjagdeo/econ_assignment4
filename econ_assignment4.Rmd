@@ -415,29 +415,41 @@ sectorC_abatement3B <- (tax + 11.6550) / 0.7838
 
 # Integrate from 0 to actual abatement amount for each sector then add how much taxes they have to pay to find total cost:
 
-sectorA_totalcost3B <- 1263.69 + ((180 - sectorA_abatement3B)*tax)
 # Integrate from 0 to 82.85692
+sectorA_totaltax3B <- ((180 - sectorA_abatement3B)*tax)
+# Add tax
+sectorA_totalcost3B <- 1263.69 + sectorA_totaltax3B
 # Total cost to Sector A under tax is $5066.59
 
-sectorB_totalcost3B <- 3637.89 + ((200 - sectorB_abatement3B)*tax)
+# Integrate from 0 to 
+sectorB_totaltax3B <- ((200 - sectorB_abatement3B)*tax)
+# Add tax
+sectorB_totalcost3B <- 3637.89 + sectorB_totaltax3B
 # Total cost to Sector B under tax is $5590.40
 
-sectorC_totalcost3B <- 651.284 + ((220 - sectorC_abatement3B)*tax)
+
+# Integrate from 0 to
+sectorC_totaltax3B <- ((220 - sectorC_abatement3B)*tax)
+# Add tax
+sectorC_totalcost3B <- 651.284 + sectorC_totaltax3B
 # Total cost to Sector C under tax is $6726.35
 
 ```
 
 ```{r, total cost of meeting target under a tax}
 
-countryX_totalcost3B <- sectorA_totalcost3B+sectorB_totalcost3B+sectorC_totalcost3B
 
-# Total cost of meeting target under tax for Country X is $17,383.33
+# Total cost for country X is sectos added together minus tax revenue because tax goes to the country's govnerment
+countryX_totalcost3B <- (sectorA_totalcost3B + sectorB_totalcost3B + sectorC_totalcost3B) - (sectorA_totaltax3B + sectorB_totaltax3B + sectorC_totaltax3B)
+
+# Total cost of meeting target under tax for Country X is $5552.86
 
 ```
 
 ```{r, tax revenue generated in Country X}
 
 countryX_taxrev3B <- 300*tax
+
 # Tax revenue generated under tax of $39.15 is $11,744.21
 
 ```
@@ -469,7 +481,7 @@ sectorC_captrade3C <- 100 - ((tax + 11.6550) / 0.7838)
 ```{r, cost and benefits to each sector}
 
 # Sector A emits 97.14308 tons (180 - 82.856917)
-# sector B emits 49.87584 tons (200 - 150.12415)
+# sector B emits 49.87584 tons (200 - 150.12415)  THIS SHOULD BE EMITS 48. WE PROBS HAVE A ROUNDING PROBLEM SOMEWHERE 
 # Sector C emits 155.1845 tons (220 - 64.815476)
 
 # Sector A is given 80 permits
@@ -477,7 +489,7 @@ sectorC_captrade3C <- 100 - ((tax + 11.6550) / 0.7838)
 # Sector C is given 120 permits
 
 # Sector A needs 17 permits
-# Sector B sells 51 permits
+# Sector B sells 52 permits
 # Sector C needs 35 permits
 
 
@@ -486,8 +498,8 @@ sectorC_captrade3C <- 100 - ((tax + 11.6550) / 0.7838)
 sectorA_permit <- 1263.69 + (tax*17)
 # Sector A will pay $665.51 for 17 permits, leading to a total cost of 1929.20
 
-sector_B_permit <- 3637.89 - (tax*51)
-# Sector B will receive $1996.52 for 51 permits sold, leading to a total of 1641.37
+sector_B_permit <- 3637.89 - (tax*52)
+# Sector B will receive $1996.52 for 51 permits sold, leading to a total of 1602.23
 
 sectorC_permit <- 651.284 + (tax*35)
 # Sector C will pay $1370.16 for 35 permits sold, leading to a total cost of 2021.44
@@ -497,9 +509,10 @@ sectorC_permit <- 651.284 + (tax*35)
 ```{r, cost country as a whole}
 
 countryX_totalcost3C <- (sectorA_permit + sectorC_permit + sector_B_permit)
-# Total cost to country X under cap and trade is $5592.01
 
-# This is significantly less than the cost under a carbon tax
+# Total cost to country X under cap and trade is $5552.86
+
+# This is the same total cost as Country X under a carbon tax, but the individual sectors do better under cap and trade
 
 ```
 
