@@ -530,8 +530,8 @@ there any incentives for country Y to enter country X’s carbon market and to t
 
 # New tax w/ Sector D involved:
 # y = 0.08410515X + 4.567783
-tax4 <- ((0.08410515 * 600) + 4.567783)
-# New tax w/ Sector D is $55.03
+tax4 <- ((0.08410515 * 300) + 4.567783)
+# New tax w/ Sector D is $29.80
 
 ```
 
@@ -541,27 +541,50 @@ tax4 <- ((0.08410515 * 600) + 4.567783)
 
 # Sector A
 sectorA_abatement4 <- ((tax4 + 8.6445) / 0.5768)
-# Sector A will abate 110.39 tons
-# Sector A can sell 11 credits
+# Sector A will abate 66.65 tons
+# Sector A is now emitting 113.35 tons
+# Sector A needs to buy 34 credits
 
 
 # Sector B
 sectorB_abatement4 <- ((tax4 - 9.3177) / 0.1987)
-# Sector B will abate 230.06 tons
-# Sector B can sell 131 credits
+# Sector B will abate 103.07 tons
+# Sector B is now emitting 96.93
+# Sector B will sell 4 credits
 
 
 # Sector C
 sectorC_abatement4 <- ((tax4 + 11.6550) / 0.7838)
-# Sector C will abate 85.08 tons 
-# Sector C needs 
+# Sector C will abate 52.88 tons 
+# Sector C is now emitting 167.12
+# Sector C needs to buy 48 credits
 
 # Sector D
 sectorD_abatement4 <- ((tax4 -9.6875)/0.2599)
-# Sector D will abate 174.46 tons
-# Sector D needs 126 credits
-
-
+# Sector D will abate 77.38 tons
+# Sector D  is now emitting 222.62
+# Sector D will sell 78 credits
 
 ```
+
+Country X would want Country Y to join the carbon market because the marginal cost of abatement for all four sectors is less than the marginal cost of abatement for Country X (Sectors A, B, and C).
+
+Country Y would want to join the carbon market because it would be able to sell 78 permits to Sectors A and C, therefore making money. 
+
+
+5. Now assume that every ton of carbon emissions creates 1 ton of local air pollution. Local air pollution causes economic damages (health, environmental, etc.), but only in the country in which it is emitted. Assume there are no local air pollution regulations in either country X or country Y.
+
+a. In a carbon cap and trade market that only covers sectors in country X, how much local air pollution would you expect in country X? In country Y?
+
+*In Country X, we expect 300 tons of local air pollution. In Country Y, we expect 300 tons of local air pollution as well.* 
+
+b. If country Y enters the carbon market for country X (as in question 4 above), how much local
+pollution will there be in country X and country Y?
+
+*In Country X, we expect 378 tons of local air pollution. In Country Y, we expect 223 tons of local air pollution.*
+
+c. What advice can you give country X and country Y about the desirability of allowing
+international trade of carbon emissions credits?
+
+*It is econonmically desirable for Country X and Country Y to engage in carbon trading within this market system. However, it is important to note that in terms of local air pollution, carbon trading may not be desirable because this trading increases air pollution from Country X.*
 
